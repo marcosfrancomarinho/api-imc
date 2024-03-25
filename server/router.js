@@ -1,20 +1,19 @@
 const express = require("express")
-const fs = require("fs")
 const path = require("path")
+const { insertDB, selectDB } = require("../database/query")
 const routers = express.Router()
 
-routers.get("/", (req, res) => {
-    const { indices } = JSON.parse(fs.readFileSync(path.join(__dirname, "db.json"), "utf8"))
-    res.status(200).type("json").send(indices)
+routers.get("/", async (req, res) => {
+    const response = await selectDB()
+    res.status(200).type("json").send(response)
 })
-
-routers.post("/", (req, res) => {
-    const { indices } = JSON.parse(fs.readFileSync(path.join(__dirname, "db.json"), "utf8"))
-    indices.push(req.body)
-    fs.writeFileSync(path.join(__dirname, "db.json"), JSON.stringify({ indices: indices }))
-    res.status(200).type("json").send({
-        data: req.body,
-        add: true
-    })
+routers.post("/", async (req, res) => {
+    const data = req.body
+    await insertDB.bind({
+        name: data.name,
+        imc: parseFloat(data.imc),
+        type: data.type
+    })()
+    res.status(201).type("json").send(data)
 })
 module.exports = routers
