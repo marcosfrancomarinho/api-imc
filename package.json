@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node server/app.js",
-    "dev":"node database/connection.js"
+    "dev": "node database/connection.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.1",
+    "pg": "^8.11.3",
     "sequelize": "^6.37.1"
   }
 }
