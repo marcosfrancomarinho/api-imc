@@ -1,10 +1,11 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const path = require("path")
+require("dotenv").config()
 const sequelize = new Sequelize({
-    database: "ycaijoal",
-    username: "ycaijoal",
-    password: "AqY1N4jTNF3AAXUSz4a7VUA0RJi2MOAr",
-    host: "isabelle.db.elephantsql.com",
+    database: process.env.DATA_BASE,
+    username: process.env.USER_NAME,
+    password: process.env.PASSWORD,
+    host: process.env.HOST,
     dialect: "postgres"
 })
 module.exports = { sequelize, DataTypes }
